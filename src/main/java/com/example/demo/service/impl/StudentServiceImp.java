@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class StudentServiceImp implements StudentService {
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
 
     public StudentServiceImp(StudentRepository studentRepository) {
@@ -21,4 +21,22 @@ public class StudentServiceImp implements StudentService {
     public List<Student> getAllStudents(){
         return studentRepository.findAll();
     }
+
+    @Override
+    public Student saveStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).get();
+    }
+
+    @Override
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+
+
 }
