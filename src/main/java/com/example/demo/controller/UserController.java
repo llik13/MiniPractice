@@ -48,12 +48,12 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}")
-    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") User student, Model model){
-        User existingStudent = userService.getUserById(id);
-        existingStudent.setFirstName(student.getFirstName());
-        existingStudent.setLastName(student.getLastName());
-        existingStudent.setEmail(student.getEmail());
-        userService.updateUser(existingStudent);
+    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") User user, Model model){
+        User existingUser = userService.getUserById(id);
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        userService.updateUser(existingUser);
         return "redirect:/users";
     }
 
