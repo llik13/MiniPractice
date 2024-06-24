@@ -6,22 +6,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <!-- Brand -->
-    <a class="navbar-brand" href="#">Student Management System</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
 
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/users}">User Management</a>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <span class="navbar-brand mb-0 h1">Adoption Pet</span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Add
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAdd">
+                        <li><a class="dropdown-item" th:href="@{/users/new}">Add user</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pets/new}">Add pet</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adoption-requests/create}">Add adoption</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLinkList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        List
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkList">
+                        <li><a class="dropdown-item" th:href="@{/users}">List user</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pets}">List pet</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adoption-requests}">List of adoption Requests</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <br>

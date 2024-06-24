@@ -6,33 +6,50 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">Adoption Management System</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/adoption-requests}">Adoption Requests</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <span class="navbar-brand mb-0 h1">Adoption Pet</span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Add
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAdd">
+                        <li><a class="dropdown-item" th:href="@{/users/new}">Add user</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pets/new}">Add pet</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adoption-requests/create}">Add adoption</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLinkList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        List
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkList">
+                        <li><a class="dropdown-item" th:href="@{/users}">List user</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pets}">List pet</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adoption-requests}">List of adoption Requests</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <br>
 <div class="container">
     <h2>Create Adoption Request</h2>
-    <form th:action="@{/adoption-requests/create}" th:object="${adoptionRequest}" method="post">
+    <form th:action="@{/adoption-requests}" th:object="${adoptionRequest}" method="post">
         <div class="form-group">
             <label>User</label>
             <select th:field="*{user}" class="form-control">
-                <option th:each="user : ${users}" th:value="${user}" th:text="${user.firstName} + ' ' + ${user.lastName}">John Doe</option>
+                <option th:each="user : ${users}" th:value="${user}" th:text="${user.firstName} + ' ' + ${user.lastName}"></option>
             </select>
         </div>
         <div class="form-group">
             <label>Pet</label>
             <select th:field="*{pet}" class="form-control">
-                <option th:each="pet : ${pets}" th:value="${pet}" th:text="${pet.kind}">Dog</option>
+                <option th:each="pet : ${pets}" th:value="${pet}" th:text="${pet.kind}"></option>
             </select>
         </div>
         <div class="form-group">

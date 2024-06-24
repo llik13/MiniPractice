@@ -7,6 +7,8 @@ import com.example.demo.service.AdoptionRequestService;
 import com.example.demo.reprository.UserRepository;
 import com.example.demo.reprository.PetRepository;
 
+import com.example.demo.service.PetService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,21 +17,22 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/adoption-requests")
 public class AdoptionRequestController {
 
     private final AdoptionRequestService adoptionRequestService;
-    private final UserRepository userRepository;
-    private final PetRepository petRepository;
+    private final UserService userService;
+    private final PetService petService;
 
     @Autowired
     public AdoptionRequestController(AdoptionRequestService adoptionRequestService,
-                                     UserRepository userRepository, PetRepository petRepository) {
+                                     UserService userService, PetService petService) {
         this.adoptionRequestService = adoptionRequestService;
-        this.userRepository = userRepository;
-        this.petRepository = petRepository;
+        this.userService = userService;
+        this.petService = petService;
     }
 
     @GetMapping
@@ -41,19 +44,14 @@ public class AdoptionRequestController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("adoptionRequest", new AdoptionRequest());
-        model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("pets", petRepository.findAll());
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("pets", petService.getAllPets());
         return "create-adoption-request";
     }
 
     @PostMapping("/create")
     public String createAdoptionRequest(@Valid @ModelAttribute AdoptionRequest adoptionRequest,
                                         BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("users", userRepository.findAll());
-            model.addAttribute("pets", petRepository.findAll());
-            return "create-adoption-request";
-        }
         adoptionRequest.setRequestDate(LocalDateTime.now());
         adoptionRequestService.createAdoptionRequest(adoptionRequest);
         return "redirect:/adoption-requests";
@@ -61,11 +59,10 @@ public class AdoptionRequestController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        AdoptionRequest adoptionRequest = adoptionRequestService.getAdoptionRequestById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid adoption request Id:" + id));
+        Optional<AdoptionRequest> adoptionRequest = adoptionRequestService.getAdoptionRequestById(id);
         model.addAttribute("adoptionRequest", adoptionRequest);
-        model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("pets", petRepository.findAll());
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("pets", petService.getAllPets());
         return "update-adoption-request";
     }
 
@@ -74,8 +71,8 @@ public class AdoptionRequestController {
                                         BindingResult result, Model model) {
         if (result.hasErrors()) {
             adoptionRequest.setId(id);
-            model.addAttribute("users", userRepository.findAll());
-            model.addAttribute("pets", petRepository.findAll());
+            model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("pets", petService.getAllPets());
             return "update-adoption-request";
         }
         adoptionRequest.setRequestDate(LocalDateTime.now());

@@ -10,20 +10,31 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-light mb-6">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Navbar</span>
 
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <span class="navbar-brand mb-0 h1">Adoption Pet</span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdd" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Add
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAdd">
+                        <li><a class="dropdown-item" th:href="@{/users/new}">Add user</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pets/new}">Add pet</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adoption-requests/create}">Add adoption</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLinkList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        List
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkList">
+                        <li><a class="dropdown-item" th:href="@{/users}">List user</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pets}">List pet</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adoption-requests}">List of adoption Requests</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
