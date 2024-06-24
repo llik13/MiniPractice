@@ -1,6 +1,10 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Range;
+
+import java.util.List;
 
 
 @Entity
@@ -13,14 +17,20 @@ public class Pet {
     private Long id;
 
     @Column(name = "organization", nullable = false)
+    @NotBlank(message = "Organization is mandatory")
+    @Size(min = 2, max = 100, message = "Organization must consist of 2 to 100 symboles")
     private String organization;
     @Column(name = "kind", nullable = false)
+    @NotBlank(message = "Kind is mandatory")
+    @Size(min = 2, max = 30, message = "Kind must consist of 2 to 30 symboles")
     private String kind;
     @Column(name = "age", nullable = false)
+    @Range(min = 0, max = 25, message = "Age must be between 0 to 25")
     private int age;
     @Column(name = "sex", nullable = false)
     private String sex;
-
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private List<AdoptionRequest> adoptionRequests;
 
     public Pet() {
     }

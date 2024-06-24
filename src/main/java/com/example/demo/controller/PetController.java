@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.entity.Pet;
 
 import com.example.demo.service.PetService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -16,7 +18,6 @@ public class PetController {
         this.petService = petService;
     }
 
-    //handler
     @GetMapping("/pets")
     public String listPets(Model model){
         model.addAttribute("pets", petService.getAllPets());
@@ -31,8 +32,11 @@ public class PetController {
 
     }
 
-    @PostMapping("pets")
-    public String savePet(@ModelAttribute("pet") Pet pet) {
+    @PostMapping("/pets")
+    public String savePet(@Valid @ModelAttribute("pet") Pet pet, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "create_pet";
+        }
         petService.savePet(pet);
         return "redirect:/pets";
     }
@@ -44,13 +48,17 @@ public class PetController {
     }
 
     @PostMapping("/pets/{id}")
-    public String updatePet(@PathVariable Long id, @ModelAttribute("pet") Pet pet, Model model){
+    public String updatePet(@PathVariable Long id, @Valid @ModelAttribute("pet") Pet pet, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pet", pet);
+            return "edit_pets";
+        }
         Pet existingPet = petService.getPetById(id);
         existingPet.setOrganization(pet.getOrganization());
         existingPet.setKind(pet.getKind());
         existingPet.setAge(pet.getAge());
         existingPet.setSex(pet.getSex());
-        petService.updatePet(pet);
+        petService.updatePet(existingPet);
         return "redirect:/pets";
     }
 

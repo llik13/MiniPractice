@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -10,17 +13,24 @@ public class User {
     private Long id;
 
     @Column(name = "first_name", nullable = false)
+    @NotBlank(message = "First name is mandatory")
+    @Size(min = 2, max = 30, message = "First name must consist of 2 to 30 symboles")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @NotBlank(message = "Second name is mandatory")
+    @Size(min = 2, max = 30, message = "First name must consist of 2 to 30 symboles")
     private String lastName;
 
     @Column(name ="email", nullable = false)
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Enter correct email")
     private String email;
 
-    public User(){
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AdoptionRequest> adoptionRequests;
 
-    }
+    public User(){}
 
     public User(String firstName, String lastName, String email) {
         super();

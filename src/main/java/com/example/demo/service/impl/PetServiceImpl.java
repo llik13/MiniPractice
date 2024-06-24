@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PetServiceImpl implements PetService {
 
+    private final PetRepository petRepository;
+
     @Autowired
-    private PetRepository petRepository;
+    public PetServiceImpl(PetRepository petRepository) {
+        this.petRepository = petRepository;
+    }
 
     @Override
     public List<Pet> getAllPets() {
@@ -22,7 +25,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet getPetById(Long id) {
-        return petRepository.findById(id).get();
+        return petRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid pet Id:" + id));
     }
 
     @Override
@@ -31,11 +35,19 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public void deletePet(Long id) {
-        petRepository.deleteById(id);
+    public Pet updatePet(Pet pet) {
+        if (petRepository.existsById(pet.getId())) {
+            return petRepository.save(pet);
+        }
+        throw new IllegalArgumentException("Invalid pet Id:" + pet.getId());
     }
 
-    public Pet updatePet(Pet pet){
-        return petRepository.save(pet);
+    @Override
+    public void deletePet(Long id) {
+        if (petRepository.existsById(id)) {
+            petRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Invalid pet Id:" + id);
+        }
     }
 }

@@ -26,52 +26,34 @@
 </nav>
 <br>
 <br>
-<div class = "container">
-    <div class = "row">
-        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class = "text-center"> Update User </h1>
-            <div class = "card-body">
-                <form th:action="@{/users/{id} (id=${user.id})}" th:object = "${user}" method="POST">
-                    <div class ="form-group mb-3">
-                        <label> User First Name </label>
-                        <input
-                                type = "text"
-                                name = "firstName"
-                                th:field = "*{firstName}"
-                                class = "form-control"
-                                placeholder="Enter Student First Name"
-                        />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center">Update User</h1>
+            <div class="card-body">
+                <form th:action="@{/users/{id}(id=${user.id})}" th:object="${user}" method="POST">
+                    <div class="form-group mb-3">
+                        <label>User First Name</label>
+                        <input type="text" name="firstName" th:field="*{firstName}" class="form-control" placeholder="Enter User First Name"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                     </div>
 
-                    <div class ="form-group mb-3">
-                        <label> User Last Name </label>
-                        <input
-                                type = "text"
-                                name = "lastName"
-                                th:field = "*{lastName}"
-                                class = "form-control"
-                                placeholder="Enter Student Last Name"
-                        />
+                    <div class="form-group mb-3">
+                        <label>User Last Name</label>
+                        <input type="text" name="lastName" th:field="*{lastName}" class="form-control" placeholder="Enter User Last Name"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                     </div>
 
-                    <div class ="form-group mb-3">
-                        <label> User Email </label>
-                        <input
-                                type = "text"
-                                name = "email"
-                                th:field = "*{email}"
-                                class = "form-control"
-                                placeholder="Enter Student Email"
-                        />
+                    <div class="form-group mb-3">
+                        <label>User Email</label>
+                        <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Enter User Email"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
 
-                    <div class = "box-footer">
-                        <button type="submit" class = "btn btn-primary">
-                            Submit
-                        </button>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

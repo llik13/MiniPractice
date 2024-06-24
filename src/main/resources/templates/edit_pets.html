@@ -1,28 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Update Pet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <!-- Brand -->
     <a class="navbar-brand" href="#">Pet Management System</a>
-
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/pets}">Pet Management</a>
-            </li>
-        </ul>
-    </div>
 </nav>
 <br>
 <br>
@@ -31,60 +16,43 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Update Pet</h1>
             <div class="card-body">
-                <form th:action="@{/pets/{id} (id=${pet.id})}" th:object="${pet}" method="POST">
+                <form th:action="@{/pets/{id}(id=${pet.id})}" th:object="${pet}" method="POST">
                     <div class="form-group mb-3">
                         <label>Pet Organization</label>
-                        <input
-                                type="text"
-                                name="organization"
-                                th:field="*{organization}"
-                                class="form-control"
-                                placeholder="Enter Pet Organization"
-                        />
+                        <input type="text" name="organization" th:field="*{organization}" class="form-control" placeholder="Enter Pet Organization"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('organization')}" th:errors="*{organization}">Organization Error</div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label>Pet Kind</label>
-                        <input
-                                type="text"
-                                name="kind"
-                                th:field="*{kind}"
-                                class="form-control"
-                                placeholder="Enter Pet Kind"
-                        />
+                        <input type="text" name="kind" th:field="*{kind}" class="form-control" placeholder="Enter Pet Kind"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('kind')}" th:errors="*{kind}">Kind Error</div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label>Pet Age</label>
-                        <input
-                                type="number"
-                                name="age"
-                                th:field="*{age}"
-                                class="form-control"
-                                placeholder="Enter Pet Age"
-                        />
+                        <input type="number" name="age" th:field="*{age}" class="form-control" placeholder="Enter Pet Age"/>
+                        <div class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label>Pet Sex</label>
-                        <input
-                                type="text"
-                                name="sex"
-                                th:field="*{sex}"
-                                class="form-control"
-                                placeholder="Enter Pet Sex"
-                        />
+                        <select name="sex" th:field="*{sex}" class="form-control">
+                            <option value="" disabled>Select Pet Sex</option>
+                            <option value="male" th:selected="${pet.sex == 'male'}">Male</option>
+                            <option value="female" th:selected="${pet.sex == 'female'}">Female</option>
+                        </select>
+                        <div class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</div>
                     </div>
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">
-                            Submit
-                        </button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +20,6 @@ public class UserController {
         this.userService = studentService;
     }
 
-    //handler
     @GetMapping("/users")
     public String listStudent(Model model){
         model.addAttribute("users", userService.getAllUsers());
@@ -27,16 +28,16 @@ public class UserController {
 
     @GetMapping("/users/new")
     public String createStudentForm(Model model) {
-
-        // create student object to hold student form data
         User student = new User();
         model.addAttribute("user", student);
         return "create_user";
-
     }
 
     @PostMapping("/users")
-    public String saveStudent(@ModelAttribute("user") User student) {
+    public String saveStudent(@Valid @ModelAttribute("user") User student, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "create_user";
+        }
         userService.saveUser(student);
         return "redirect:/users";
     }
@@ -48,7 +49,11 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}")
-    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") User user, Model model){
+    public String updateStudent(@PathVariable Long id, @Valid @ModelAttribute("user") User user, Model model, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("user", user);
+            return "edit_user";
+        }
         User existingUser = userService.getUserById(id);
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
