@@ -39,10 +39,10 @@
 <br>
 <div class="container">
     <h2>Update Adoption Request</h2>
-    <form th:action="@{/adoption-requests/update/{id}(id=${adoptionRequest.id})}" th:object="${adoptionRequest}" method="post">
+    <form th:action="@{/adoption-requests/update/{id}(id=${adoptionRequest.id})}" th:object="${adoptionRequest}" th:object="${users}" method="post">
         <div class="form-group">
             <label>User</label>
-            <select th:field="*{user}" class="form-control">
+            <select th:field="*{users}" class="form-control">
                 <option th:each="user : ${users}" th:value="${user}" th:text="${user.firstName} + ' ' + ${user.lastName}">John Doe</option>
             </select>
         </div>

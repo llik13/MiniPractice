@@ -14,12 +14,10 @@ public class AdoptionRequest {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @NotNull(message = "User is mandatory")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "pet_id", nullable = false)
-    @NotNull(message = "Pet is mandatory")
     private Pet pet;
 
     @Column(name = "request_date", nullable = false)

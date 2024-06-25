@@ -58,10 +58,10 @@
       <td th:text="${adoptionRequest.id}">1</td>
       <td th:text="${adoptionRequest.user.firstName} + ' ' + ${adoptionRequest.user.lastName}">John Doe</td>
       <td th:text="${adoptionRequest.pet.kind}">Dog</td>
-      <td th:text="${adoptionRequest.requestDate}">2023-01-01</td>
+      <td th:text="${adoptionRequest.requestDate.getYear() + ' ' + adoptionRequest.getRequestDate().getMonth() + ' ' + adoptionRequest.getRequestDate().getDayOfMonth()}">2023-01-01</td>
       <td>
         <a th:href="@{/adoption-requests/edit/{id}(id=${adoptionRequest.id})}" class="btn btn-primary">Edit</a>
-        <a th:href="@{/adoption-requests/delete/{id}(id=${adoptionRequest.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/adoption-requests/{id}(id=${adoptionRequest.id})}" class="btn btn-danger">Delete</a>
       </td>
     </tr>
     </tbody>
