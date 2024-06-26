@@ -67,7 +67,8 @@ public class AdoptionRequestController {
 
     @GetMapping("/adoption-requests/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Optional<AdoptionRequest> adoptionRequest = adoptionRequestService.getAdoptionRequestById(id);
+        Optional<AdoptionRequest> adoptionRequestOptional = adoptionRequestService.getAdoptionRequestById(id);
+        AdoptionRequest adoptionRequest = adoptionRequestOptional.orElseThrow();
         model.addAttribute("adoptionRequest", adoptionRequest);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("pets", petService.getAllPets());

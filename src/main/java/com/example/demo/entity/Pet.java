@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "Pet")
-
 public class Pet {
 
     @Id
@@ -29,8 +28,8 @@ public class Pet {
     private int age;
     @Column(name = "sex", nullable = false)
     private String sex;
-    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
-    private List<AdoptionRequest> adoptionRequests;
+    @OneToOne(mappedBy = "pet", cascade = CascadeType.ALL)
+    private AdoptionRequest adoptionRequests;
 
     public Pet() {
     }

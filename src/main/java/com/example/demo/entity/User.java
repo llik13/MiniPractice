@@ -27,8 +27,8 @@ public class User {
     @Email(message = "Enter correct email")
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<AdoptionRequest> adoptionRequests;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private AdoptionRequest adoptionRequests;
 
     public User(){}
 

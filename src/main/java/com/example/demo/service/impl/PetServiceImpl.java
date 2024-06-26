@@ -4,6 +4,8 @@ import com.example.demo.entity.Pet;
 import com.example.demo.reprository.PetRepository;
 import com.example.demo.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +51,10 @@ public class PetServiceImpl implements PetService {
         } else {
             throw new IllegalArgumentException("Invalid pet Id:" + id);
         }
+    }
+
+    @Override
+    public Page<Pet> getAllPetsPaginated(Pageable pageable) {
+        return petRepository.findAll(pageable);
     }
 }
