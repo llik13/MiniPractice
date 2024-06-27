@@ -39,14 +39,14 @@
 <div class="container">
     <h2>Create Adoption Request</h2>
     <form th:action="@{/adoption-requests}" method="post">
-        <div class="form-group">
-            <label>User</label>
+        <div class="form-group mb-2">
+            <label class="">User</label>
             <select name="userId" class="form-control">
                 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.firstName} + ' ' + ${user.lastName}"></option>
             </select>
         </div>
-        <div class="form-group">
-            <label>Pet</label>
+        <div class="form-group mb-2">
+            <label class="">Pet</label>
             <select name="petId" class="form-control">
                 <option th:each="pet : ${pets}" th:value="${pet.id}" th:text="${pet.kind} + ' ' +${pet.organization}"></option>
             </select>

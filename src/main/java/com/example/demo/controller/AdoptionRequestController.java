@@ -70,7 +70,7 @@ public class AdoptionRequestController {
         Optional<AdoptionRequest> adoptionRequestOptional = adoptionRequestService.getAdoptionRequestById(id);
         AdoptionRequest adoptionRequest = adoptionRequestOptional.orElseThrow();
         model.addAttribute("adoptionRequest", adoptionRequest);
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("user", userService.getUserById(adoptionRequest.getUser().getId()));
         model.addAttribute("pets", petService.getAllPets());
         return "update-adoption-request";
     }
