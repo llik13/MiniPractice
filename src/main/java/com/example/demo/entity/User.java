@@ -14,21 +14,21 @@ public class User {
 
     @Column(name = "first_name", nullable = false)
     @NotBlank(message = "First name is mandatory")
-    @Size(min = 2, max = 30, message = "First name must consist of 2 to 30 symboles")
+    @Size(min = 2, max = 30, message = "First name must consist of 2 to 30 symbols")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
-    @NotBlank(message = "Second name is mandatory")
-    @Size(min = 2, max = 30, message = "First name must consist of 2 to 30 symboles")
+    @NotBlank(message = "Last name is mandatory")
+    @Size(min = 2, max = 30, message = "Last name must consist of 2 to 30 symbols")
     private String lastName;
 
-    @Column(name ="email", nullable = false)
+    @Column(name = "email", nullable = false)
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Enter correct email")
     private String email;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private AdoptionRequest adoptionRequests;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private AdoptionRequest adoptionRequest;
 
     public User(){}
 
